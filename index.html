@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>My Bridget Riley image</title>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+      var theCanvas = document.getElementById("myCanvas");
+      theCanvas.width = window.innerWidth;
+      theCanvas.height = window.innerHeight;
+      function toRadians(deg) {
+        return (deg * Math.PI) / 180;
+      }
+      var c = theCanvas.getContext("2d");
+      if (theCanvas.getContext) {
+        // c.moveTo(c.canvas.width / 2, 0);
+        // c.lineTo(c.canvas.width / 2, c.canvas.height);
+        // c.strokeStyle = "red";
+        // c.stroke();
+        var cw = theCanvas.width / 2;
+        var ch = theCanvas.height / 2;
+        var wradius = cw * 2;
+        var hradius = ch * 2;
+        for (var j = 0; j < 4; j++) {
+          c.beginPath();
+          var startAngle = 250;
+          var endAngle = startAngle + 20;
+          wradius =
+            wradius == cw * 2 - 0.21 * cw && j == 1
+              ? 0.67 * cw
+              : wradius - 0.21 * cw;
+          hradius =
+            hradius == ch * 2 - 0.21 * ch && j == 1
+              ? 0.67 * ch
+              : hradius - 0.21 * ch;
+          for (var i = 0; i <= 360 / 18; i++) {
+            c.beginPath();
+            var cx = theCanvas.width / 2;
+            var cy = theCanvas.height / 2;
+            startAngle = startAngle == 360 ? 0 : startAngle + 20;
+            endAngle = startAngle == 360 ? 20 : startAngle + 20;
+            c.moveTo(cx, cy);
+            //c.arc(cx, cy, radius, toRadians(startAngle), toRadians(endAngle));
+            //ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle [, anticlockwise]);
+            c.ellipse(
+              cx,
+              cy,
+              wradius + 20,
+              hradius,
+              0,
+              toRadians(startAngle),
+              toRadians(endAngle)
+            );
+            c.lineTo(cx, cy);
+            c.closePath();
+            if ((i % 2 != 0 && j % 2 == 0) || (j % 2 != 0 && i % 2 == 0)) {
+              c.fillStyle = "black";
+              c.fill();
+            } else {
+              c.fillStyle = "white";
+              c.fill();
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>
